@@ -1,7 +1,7 @@
-import './index.scss'
-import CategoryItem from '../CategoryItem'
+import Directory from '../../components/Directory'
+import { Outlet } from 'react-router-dom'
 
-const Categories = (categoryItem) => {
+const Home = () => {
   const categories = [
     {
       "id": 1,
@@ -31,16 +31,12 @@ const Categories = (categoryItem) => {
   ]
 
   return (
-    <div className="categories-container">
-      {categories.map((item) =>
-        <CategoryItem
-          key={item.id}
-          category={item}
-        />)
-      }
-    </div>
+    <>
+      <Outlet />
+      <Directory categories={categories} />
+    </>
   )
 
 }
 
-export default Categories
+export default Home

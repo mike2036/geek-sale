@@ -1,20 +1,15 @@
-import Categories from './components/Categories'
+import { Home, Shop, Navigation, SignIn } from './pages'
+import { Routes, Route } from 'react-router-dom'
 
 const App = () => {
   return (
-    <Categories
-
-    />
-    // <div>
-    //   <div className="categories-container">
-    //     {categories.map((item) =>
-    //       <CategoryItem
-    //         key={item.id}
-    //         category={item}
-    //       />)
-    //     }
-    //   </div>
-    // </div>
+    <Routes>
+      <Route path='/' element={<Navigation />} >
+        <Route index element={<Home />} />
+        <Route path='/shop' element={<Shop />} />
+        <Route path='/signIn' element={<SignIn />} />
+      </Route>
+    </Routes>
   )
 }
 
