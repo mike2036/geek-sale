@@ -1,2 +1,2 @@
 # geek-sale
-This is a fullstack e-commerce website focusing on geek devices.
+This is a react based e-commerce website focusing on geek devices.
