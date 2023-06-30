@@ -3,6 +3,7 @@ import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
   createAuthUserWithEmailAndPassword,
+  signInAuthUserWithEmailAndPassword,
 } from './firebase';
 
 export {
@@ -10,4 +11,5 @@ export {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
   createAuthUserWithEmailAndPassword,
+  signInAuthUserWithEmailAndPassword,
 };

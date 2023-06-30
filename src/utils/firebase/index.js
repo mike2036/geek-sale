@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
@@ -73,8 +74,14 @@ export const createUserDocumentFromAuth = async (userAuth, additionalUserInfo = 
   return userDocRef;
 };
 
-// 接下来是 sign in with email 的流程
+// 接下来是 sign up with email 的流程
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
   return createUserWithEmailAndPassword(auth, email, password);
+};
+
+// 接下来是 sign in with email 的流程
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+  return signInWithEmailAndPassword(auth, email, password);
 };
