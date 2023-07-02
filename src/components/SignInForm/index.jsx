@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -8,7 +8,9 @@ import {
 import FormInput from '../FormInput';
 import './index.scss';
 
-import { Button } from '..';
+import { Button } from '../../components';
+
+import { UserContext } from '../../contexts';
 
 // 定义表单四个字段的初始值，你可以放到一个对象里面
 const defaultFormFields = {
@@ -16,20 +18,22 @@ const defaultFormFields = {
   password: '',
 };
 
-const signInWithGoogle = async () => {
-  try {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
-    console.log('popup logged in as: ', user.displayName);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 // 登录
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  const signInWithGoogle = async () => {
+    try {
+      const { user } = await signInWithGooglePopup();
+      setCurrentUser(user);
+      await createUserDocumentFromAuth(user);
+      console.log('google logged in as: ', user.displayName);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   // 定义 handleChange
   const handleChange = event => {
@@ -41,14 +45,16 @@ const SignInForm = () => {
     });
   };
 
-  // 定义 handelSubmit
+  // 定义登录的 handelSubmit
   const handleSubmit = async event => {
     event.preventDefault();
     // 校验两次密码是否一致;
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(email, password);
-      console.log(response);
+      const user = await signInAuthUserWithEmailAndPassword(email, password);
+      console.log(user);
+      setCurrentUser(user);
+      console.log('email logged in as: ', user.displayName);
 
       setFormFields(defaultFormFields);
     } catch (error) {

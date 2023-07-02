@@ -5,6 +5,8 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
@@ -84,4 +86,13 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
   return signInWithEmailAndPassword(auth, email, password);
+};
+
+// 定义注销方法
+export const signOutUser = async () => await signOut(auth);
+
+// 定义
+export const onAuthStateChangedListener = callback => {
+  if (!callback) return;
+  onAuthStateChanged(auth, callback);
 };

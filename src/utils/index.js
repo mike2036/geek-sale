@@ -4,6 +4,8 @@ import {
   createUserDocumentFromAuth,
   createAuthUserWithEmailAndPassword,
   signInAuthUserWithEmailAndPassword,
+  signOutUser,
+  onAuthStateChangedListener,
 } from './firebase';
 
 export {
@@ -12,4 +14,6 @@ export {
   createUserDocumentFromAuth,
   createAuthUserWithEmailAndPassword,
   signInAuthUserWithEmailAndPassword,
+  signOutUser,
+  onAuthStateChangedListener,
 };

@@ -1,8 +1,23 @@
 import { Outlet, Link } from 'react-router-dom';
 import logo from '../../assets/pics/geek-sale-logo.png';
 import './index.scss';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts';
+import { signOutUser } from '../../utils';
 
 const Navigation = () => {
+  // 利用 react 提供的Context功能，从context中拿到user
+  // useContext同时也是一个hook，所以就具备了钩子的能力。只要这
+  // 里引入的user发生了变化，那么就重新渲染这个组件。
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+  // console.log('navigation:', currentUser);
+
+  // 定义注销
+  const signOutHandler = async () => {
+    await signOutUser();
+    setCurrentUser(null);
+  };
+
   return (
     <>
       <div className="navigation">
@@ -13,9 +28,18 @@ const Navigation = () => {
           <Link className="nav-link" to="/shop">
             SHOP
           </Link>
-          <Link className="nav-link" to="/auth">
-            Sign In
-          </Link>
+          {currentUser ? (
+            <div>
+              <span>{currentUser.displayName}</span>
+              <Link className="nav-link" onClick={signOutHandler}>
+                Sign Out
+              </Link>
+            </div>
+          ) : (
+            <Link className="nav-link" to="/auth">
+              Sign In
+            </Link>
+          )}
         </div>
       </div>
       <Outlet />
