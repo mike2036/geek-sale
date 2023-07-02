@@ -1,11 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils';
 
 import FormInput from '../FormInput';
 import './index.scss';
 
 import { Button } from '../../components';
-import { UserContext } from '../../contexts';
 
 // 定义表单四个字段的初始值，你可以放到一个对象里面
 const defaultFormFields = {
@@ -20,8 +19,6 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
   // 定义 handleChange
-
-  const { setCurrentUser } = useContext(UserContext);
 
   const handleChange = event => {
     const name = event.target.name; // 通过 event.target.name 读取当前正在输入哪个 input
@@ -49,8 +46,8 @@ const SignUpForm = () => {
       const userDocRef = await createUserDocumentFromAuth(user, { displayName });
       // console.log('userDocRef:', userDocRef);
 
-      // 将创建好的新用户，存到 Context
-      setCurrentUser(user);
+      // // 将创建好的新用户，存到 Context
+      // setCurrentUser(user);
 
       // 初始化 UI 界面的表单值，避免用户名密码泄露
       setFormFields(defaultFormFields);

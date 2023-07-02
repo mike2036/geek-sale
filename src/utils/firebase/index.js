@@ -91,7 +91,7 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 // 定义注销方法
 export const signOutUser = async () => await signOut(auth);
 
-// 定义
+// 定义一个监听器，监听Auth的状态变化，将回调函数作为参数传进去
 export const onAuthStateChangedListener = callback => {
   if (!callback) return;
   onAuthStateChanged(auth, callback);

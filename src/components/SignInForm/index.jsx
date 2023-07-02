@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -10,8 +10,6 @@ import './index.scss';
 
 import { Button } from '../../components';
 
-import { UserContext } from '../../contexts';
-
 // 定义表单四个字段的初始值，你可以放到一个对象里面
 const defaultFormFields = {
   email: '',
@@ -22,13 +20,11 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
-  const { currentUser, setCurrentUser } = useContext(UserContext);
 
   const signInWithGoogle = async () => {
     try {
       const { user } = await signInWithGooglePopup();
-      setCurrentUser(user);
-      await createUserDocumentFromAuth(user);
+      // setCurrentUser(user);
       console.log('google logged in as: ', user.displayName);
     } catch (error) {
       console.log(error.message);
@@ -53,7 +49,6 @@ const SignInForm = () => {
     try {
       const user = await signInAuthUserWithEmailAndPassword(email, password);
       console.log(user);
-      setCurrentUser(user);
       console.log('email logged in as: ', user.displayName);
 
       setFormFields(defaultFormFields);
