@@ -1,4 +1,5 @@
-import { UserContext, UserProvider } from './user.context';
-import { ProductsContext, ProductsProvider } from './products.context';
+import { UserContext, UserProvider } from './UserContext';
+import { ProductsContext, ProductsProvider } from './ProductsContext';
+import { CartContext, CartProvider } from './CartContext';
 
-export { UserContext, UserProvider, ProductsContext, ProductsProvider };
+export { UserContext, UserProvider, ProductsContext, ProductsProvider, CartContext, CartProvider };
