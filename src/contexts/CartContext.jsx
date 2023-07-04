@@ -1,10 +1,11 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 const CartContext = createContext({
   isCartOpen: false,
-  setIsCartOpen: null,
+  setIsCartOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  cartItemsCount: 0,
 });
 
 /** schema of the cartItems array:
@@ -18,10 +19,12 @@ const CartContext = createContext({
 
 // 逻辑模块：用户点击“加到购物车”以后，向购物车中添加商品
 const addCartItems = (cartItems, productToAdd) => {
-  // 判断 cartItems 购物车中是否已有 productToAdd 物品
-  // 如果有，那么购物车中该物品的数量 +1
+  // 然后判断 cartItems 购物车中是否已有 productToAdd 物品
+  // 如果有，那么购物车中该物品的数量 +1。为了实现 immutable，我们用map方法创建一个新的数组
   // 如果没有，则在购物车中加入该物品
+
   const existingCartItem = cartItems.find((item) => item.id === productToAdd.id);
+
   if (existingCartItem) {
     return cartItems.map((item) =>
       item.id === productToAdd.id ? { ...item, quantity: item.quantity + 1 } : item
@@ -34,6 +37,19 @@ const addCartItems = (cartItems, productToAdd) => {
 const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+
+  useEffect(() => {
+    const newCartItemsCount = () =>
+      cartItems.reduce((total, currentItem) => total + currentItem.quantity, 0);
+    setCartItemsCount(newCartItemsCount);
+  }, [cartItems]);
+
+  useEffect(() => {
+    const newCartItemsCount = () =>
+      cartItems.reduce((total, currentItem) => total + currentItem.quantity, 0);
+    setCartItemsCount(newCartItemsCount);
+  }, [cartItems]);
 
   // 点击事件触发逻辑：传过来的参数是用户要添加的商品
   const addItemToCart = (product) => {
@@ -41,7 +57,7 @@ const CartProvider = ({ children }) => {
   };
 
   // 这一步才是把context的内容通过value加入到容器组件CartProvider中
-  const value = { isCartOpen, setIsCartOpen, cartItems, addItemToCart };
+  const value = { isCartOpen, setIsCartOpen, cartItems, addItemToCart, cartItemsCount };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

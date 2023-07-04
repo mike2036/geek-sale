@@ -1,10 +1,17 @@
+import './index.scss';
+
 const CartItem = ({ item }) => {
-  const { name, quantity } = item;
+  console.log(item);
+
+  const { imageUrl, name, quantity, price } = item;
 
   return (
-    <div>
-      <h2>{name}</h2>
-      <span>{quantity}</span>
+    <div className="cart-item-container">
+      <img alt={`${name}`} src={imageUrl} />
+      <div className="item-details">
+        <span className="name">{name}</span>
+        <span>{`${quantity} x $${price}`}</span>
+      </div>
     </div>
   );
 };
