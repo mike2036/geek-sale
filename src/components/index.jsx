@@ -6,6 +6,7 @@ import SignInForm from './SignInForm';
 import ProductCard from './ProductCard';
 import CartIcon from './CartIcon';
 import CartDropDown from './CartDropDown';
+import CartItem from './CartItem';
 
 export {
   CategoryItem,
@@ -16,4 +17,5 @@ export {
   ProductCard,
   CartIcon,
   CartDropDown,
+  CartItem,
 };
