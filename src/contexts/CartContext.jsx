@@ -7,6 +7,8 @@ const CartContext = createContext({
   addItemToCart: () => {},
   cartItemsCount: 0,
   removeItemFromCart: () => {},
+  clearItemFromCart: () => {},
+  totalPrice: 0,
 });
 
 /** schema of the cartItems array:
@@ -33,7 +35,8 @@ const addCartItems = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
-const removeCartItems = (cartItems, cartItemToRemove) => {
+// 逻辑模块：从购物车中减掉某个物品，减掉1个数量。返回更新后的购物车清单
+const removeCartItem = (cartItems, cartItemToRemove) => {
   /**先判断要 remove 的商品的数量是否大于1，如果是，则数量减1
    * 然后判断数量是否等于1，如果是，则删掉这个商品
    * 其他情况，返回错误
@@ -49,21 +52,26 @@ const removeCartItems = (cartItems, cartItemToRemove) => {
   }
 };
 
+// 定义逻辑：从购物车中减掉某个物品，减掉所有该物品。返回更新后的购物车清单
+const clearCartItem = (cartItems, cartItemToRemove) => {
+  // 直接从购物车中删掉该物品
+  return cartItems.filter((item) => item.id !== cartItemToRemove.id && item);
+};
+
 // 定义 context 的容器
 const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartItemsCount, setCartItemsCount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
+  // 计算购物车内的物品总数量，以及购物车内物品的总价格
   useEffect(() => {
-    const newCartItemsCount = () => cartItems.reduce((total, currentItem) => total + currentItem.quantity, 0);
+    const newCartItemsCount = () => cartItems.reduce((sum, item) => sum + item.quantity, 0);
     setCartItemsCount(newCartItemsCount);
+    const newTotalPrice = () => cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    setTotalPrice(newTotalPrice);
   }, [cartItems]);
-
-  // useEffect(() => {
-  //   const newCartItemsCount = () => cartItems.reduce((total, currentItem) => total + currentItem.quantity, 0);
-  //   setCartItemsCount(newCartItemsCount);
-  // }, [cartItems]);
 
   // 点击事件触发逻辑：传过来的参数是用户要添加的商品
   const addItemToCart = (product) => {
@@ -71,7 +79,11 @@ const CartProvider = ({ children }) => {
   };
 
   const removeItemFromCart = (cartItemToRemove) => {
-    setCartItems(removeCartItems(cartItems, cartItemToRemove));
+    setCartItems(removeCartItem(cartItems, cartItemToRemove));
+  };
+
+  const clearItemFromCart = (cartItemToRemove) => {
+    setCartItems(clearCartItem(cartItems, cartItemToRemove));
   };
 
   // 这一步才是把context的内容通过value加入到容器组件CartProvider中
@@ -82,6 +94,8 @@ const CartProvider = ({ children }) => {
     addItemToCart,
     cartItemsCount,
     removeItemFromCart,
+    clearItemFromCart,
+    totalPrice,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

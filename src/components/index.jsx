@@ -7,6 +7,7 @@ import ProductCard from './ProductCard';
 import CartIcon from './CartIcon';
 import CartDropDown from './CartDropDown';
 import CartItem from './CartItem';
+import CheckoutItem from './CheckoutItem';
 
 export {
   CategoryItem,
@@ -18,4 +19,5 @@ export {
   CartIcon,
   CartDropDown,
   CartItem,
+  CheckoutItem,
 };
