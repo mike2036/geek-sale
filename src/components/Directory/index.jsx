@@ -1,18 +1,14 @@
-import './index.scss'
-import CategoryItem from '../CategoryItem'
+import './index.scss';
+import { DirectoryItem } from '../../components';
 
 const Directory = ({ categories }) => {
   return (
     <div className="categories-container">
-      {categories.map((item) =>
-        <CategoryItem
-          key={item.id}
-          category={item}
-        />)
-      }
+      {categories.map((item) => (
+        <DirectoryItem key={item.id} category={item} />
+      ))}
     </div>
-  )
+  );
+};
 
-}
-
-export default Directory
+export default Directory;

@@ -1,4 +1,4 @@
-import CategoryItem from './CategoryItem';
+import DirectoryItem from './DirectoryItem';
 import Directory from './Directory';
 import SignUpForm from './SignUpForm';
 import Button from './Button';
@@ -11,7 +11,7 @@ import CheckoutItem from './CheckoutItem';
 import CategoryPreview from './CategoryPreview';
 
 export {
-  CategoryItem,
+  DirectoryItem,
   Directory,
   SignUpForm,
   Button,
