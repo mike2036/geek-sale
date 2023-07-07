@@ -1,6 +1,6 @@
-import { useContext, Fragment } from 'react';
+import { useContext } from 'react';
 import { CategoriesContext } from '../../contexts';
-import { ProductCard } from '../../components';
+import { CategoryPreview } from '../../components';
 import './index.scss';
 
 const Shop = () => {
@@ -8,8 +8,11 @@ const Shop = () => {
   console.log('categoriesMap in Shop:', categoriesMap);
   return (
     // JSX只能有一个顶部元素，所以下面要用1个幽灵元素把所有代码包裹起来
-    <>
-      {Object.keys(categoriesMap).map((title) => (
+    <div className="shop-container">
+      {Object.keys(categoriesMap).map((title) => {
+        const products = categoriesMap[title];
+        return <CategoryPreview key={title} title={title} products={products} />;
+        /**
         <Fragment key={title}>
           <h2>{title}</h2>
           <div className="product-container">
@@ -18,8 +21,9 @@ const Shop = () => {
             })}
           </div>
         </Fragment>
-      ))}
-    </>
+        */
+      })}
+    </div>
   );
 };
 
