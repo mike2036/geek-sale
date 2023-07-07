@@ -15,11 +15,11 @@ const UserProvider = ({ children }) => {
   // 定义一个副作用，定义监听器的回调函数，回调函数作为监听器的参数传进去
   // 回调函数的功能是只要监听到auth的状态发生变化，那么就调用setter函数setCurrentUser把新的user写到context里面
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener(user => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserDocumentFromAuth(user);
       }
-      console.log('user in onAuthStateChangedListener:', user);
+      // console.log('user in onAuthStateChangedListener:', user);
       setCurrentUser(user);
     });
 

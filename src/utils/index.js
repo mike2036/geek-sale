@@ -6,6 +6,8 @@ import {
   signInAuthUserWithEmailAndPassword,
   signOutUser,
   onAuthStateChangedListener,
+  addCollectionAndDocuments,
+  getCategoriesAndDocuments,
 } from './firebase';
 
 export {
@@ -16,4 +18,6 @@ export {
   signInAuthUserWithEmailAndPassword,
   signOutUser,
   onAuthStateChangedListener,
+  addCollectionAndDocuments,
+  getCategoriesAndDocuments,
 };

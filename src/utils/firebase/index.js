@@ -8,7 +8,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc, collection, writeBatch, query, getDocs } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -36,8 +36,50 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 // export const signInWithGoogleRedirect = () =>
 //   signInWithRedirect(auth, googleProvider);
 
-// 初始化 firestore database
+// 获取一个 firestore 实例，赋值给 db
 export const db = getFirestore();
+
+// 模块：从根目录的 shop-data.js 文件获取商品信息，写到 firestore
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, field) => {
+  const collectionRef = collection(db, collectionKey); // 获取 db 数据库中的一个集合的引用
+  const batch = writeBatch(db); // 创建一个数据库 db 的批处理对象
+
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object[field].toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+  console.log('done adding collection');
+};
+
+// 逻辑模块：从 firestore 中获取商品信息。完整注释如下：
+/*
+这段代码是一个逻辑模块，用于从 Firestore 数据库中获取商品信息。
+函数 getCategoriesAndDocuments 是一个异步函数，它没有接受任何参数。
+在函数内部，它执行以下操作：
+使用 collection 方法从 Firestore 实例和指定集合名称（'categories'）创建一个集合引用（collectionRef）。
+使用 query 方法从集合引用创建一个查询对象（q）。
+使用 getDocs 方法执行查询并获取查询快照（querySnapshot）。
+使用 reduce 方法遍历查询快照的文档，并将文档的数据转换为一个对象。
+对于每个文档快照，提取其数据中的 title 和 items 字段。
+将 title 转换为小写，并将其作为键，将 items 作为值添加到累加器对象中。
+最后返回累加器对象。
+请注意，该函数没有返回值，它只是在内部创建了一个包含商品信息的对象 categoryMap。如果希望在函数调用后使用或进一步处理 categoryMap，需要在函数中添加 return 语句将其返回。
+该逻辑模块假设已经在代码中导入了所需的 Firestore 相关模块，并使用了合适的配置和初始化。它适用于从 Firestore 数据库的指定集合中获取商品信息，并将其转换为以分类标题（转换为小写）作为键的对象。
+ */
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, 'categories');
+
+  const q = query(collectionRef);
+  const querySnapshot = await getDocs(q);
+  const categoryMap = querySnapshot.docs.reduce((accumulator, docSnapshot) => {
+    const { title, items } = docSnapshot.data();
+    accumulator[title.toLowerCase()] = items;
+    return accumulator;
+  }, {});
+  return categoryMap;
+};
 
 // 在 firebase 数据库中创建一个document，在这里是创建一个新注册的用户
 export const createUserDocumentFromAuth = async (userAuth, additionalUserInfo = {}) => {
@@ -92,7 +134,7 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 export const signOutUser = async () => await signOut(auth);
 
 // 定义一个监听器，监听Auth的状态变化，将回调函数作为参数传进去
-export const onAuthStateChangedListener = callback => {
+export const onAuthStateChangedListener = (callback) => {
   if (!callback) return;
   onAuthStateChanged(auth, callback);
 };
