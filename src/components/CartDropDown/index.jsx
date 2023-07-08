@@ -5,11 +5,16 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const CartDropDown = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, isCartOpen, setIsCartOpen } = useContext(CartContext);
   console.log(cartItems);
 
   const navigate = useNavigate();
   const gotoCheckoutHandler = () => {
+    // 关掉下拉购物车
+    if (isCartOpen) {
+      setIsCartOpen(false);
+    }
+
     navigate('/checkout');
   };
 
