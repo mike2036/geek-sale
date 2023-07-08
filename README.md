@@ -1,4 +1,4 @@
-# This is a demo project of e-commerce website for learning purpose.
+This is a demo project of e-commerce website for learning purpose.
 
 Tech stack:
 
