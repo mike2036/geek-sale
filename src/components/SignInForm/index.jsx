@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import {
-  signInWithGooglePopup,
-  createUserDocumentFromAuth,
-  signInAuthUserWithEmailAndPassword,
-} from '../../utils';
+import { signInWithGooglePopup, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from '../../utils';
 
 import FormInput from '../FormInput';
 import './index.scss';
@@ -32,7 +28,7 @@ const SignInForm = () => {
   };
 
   // 定义 handleChange
-  const handleChange = event => {
+  const handleChange = (event) => {
     const name = event.target.name; // 通过 event.target.name 读取当前正在输入哪个 input
     // console.log(name);
     setFormFields({
@@ -42,7 +38,7 @@ const SignInForm = () => {
   };
 
   // 定义登录的 handelSubmit
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // 校验两次密码是否一致;
 
@@ -71,25 +67,11 @@ const SignInForm = () => {
       <h2>Already have an account?</h2>
       <span>Sin in with your email and password</span>
       <form onSubmit={handleSubmit}>
-        <FormInput
-          label="Email"
-          type="email"
-          required
-          value={email}
-          onChange={handleChange}
-          name="email"
-        />
-        <FormInput
-          label="Password"
-          type="password"
-          required
-          value={password}
-          onChange={handleChange}
-          name="password"
-        />
+        <FormInput label="Email" type="email" required value={email} onChange={handleChange} name="email" />
+        <FormInput label="Password" type="password" required value={password} onChange={handleChange} name="password" />
         <div className="buttons-container">
           <Button type="submit">Sign in</Button>
-          <Button type="button" onClick={signInWithGoogle} buttonClass="google-sign-in">
+          <Button type="button" onClick={signInWithGoogle} buttonType="google-sign-in">
             Google Sign In
           </Button>
         </div>

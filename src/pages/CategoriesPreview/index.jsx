@@ -4,7 +4,7 @@ import { CategoryPreview } from '../../components';
 
 const CategoriesPreview = () => {
   const { categoriesMap } = useContext(CategoriesContext); // 先从CategoriesContext导入 categoriesMap
-  console.log('categoriesMap in Shop:', categoriesMap);
+  // console.log('categoriesMap in Shop:', categoriesMap);
   return (
     // JSX只能有一个顶部元素，所以下面要用1个幽灵元素把所有代码包裹起来
     <Fragment>

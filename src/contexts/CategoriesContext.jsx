@@ -18,7 +18,7 @@ const CategoriesProvider = ({ children }) => {
     // useEffect的第一个参数是回调函数，避免把它写成异步函数，因为为了避免竞态，effect的回调必须是同步的才行
     const getCategoriesMap = async () => {
       const categoriesMapFetched = await getCategoriesAndDocuments();
-      console.log('fetched categories:', categoriesMapFetched);
+      // console.log('fetched categories:', categoriesMapFetched);
       setCategoriesMap(categoriesMapFetched);
     };
 

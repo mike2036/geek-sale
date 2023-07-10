@@ -7,7 +7,7 @@ import { ProductCard } from '../../components';
 const Category = () => {
   // 使用 useParams() 钩子来获取当前路径中的
   const { category } = useParams();
-  console.log('category:', category);
+  // console.log('category:', category);
 
   const { categoriesMap } = useContext(CategoriesContext);
   const [products, setProducts] = useState(categoriesMap[category]);

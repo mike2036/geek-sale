@@ -10,6 +10,8 @@ import {
   getCategoriesAndDocuments,
 } from './firebase';
 
+import { createAction } from './reducers';
+
 export {
   auth,
   signInWithGooglePopup,
@@ -20,4 +22,5 @@ export {
   onAuthStateChangedListener,
   addCollectionAndDocuments,
   getCategoriesAndDocuments,
+  createAction,
 };

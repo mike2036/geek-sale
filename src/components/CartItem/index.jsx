@@ -1,7 +1,7 @@
 import './index.scss';
 
 const CartItem = ({ item }) => {
-  console.log(item);
+  // console.log(item);
 
   const { imageUrl, name, quantity, price } = item;
 

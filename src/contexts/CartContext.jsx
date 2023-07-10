@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useReducer } from 'react';
+import { createAction } from '../utils';
 
 const CartContext = createContext({
   isCartOpen: false,
@@ -10,6 +11,39 @@ const CartContext = createContext({
   clearItemFromCart: () => {},
   totalPrice: 0,
 });
+
+const CART_ACTION_TYPES = {
+  SET_CART_ITEMS: 'SET_CART_ITEMS',
+  SET_IS_CART_OPEN: 'SET_IS_CART_OPEN',
+};
+
+const INITIAL_STATE = {
+  isCartOpen: false,
+  cartItems: [],
+  cartItemsCount: 0,
+  totalPrice: 0,
+};
+
+const cartReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case CART_ACTION_TYPES.SET_CART_ITEMS:
+      return {
+        // payload里面只放结果对象，而不要放计算结果的过程
+        ...state,
+        ...payload,
+      };
+    case CART_ACTION_TYPES.SET_IS_CART_OPEN:
+      return {
+        // payload里面只放结果对象，而不要放计算结果的过程
+        ...state,
+        isCartOpen: payload,
+      };
+    default:
+      throw new Error(`Invalid action, type: ${type}`);
+  }
+};
 
 /** schema of the cartItems array:
  * {
@@ -60,30 +94,67 @@ const clearCartItem = (cartItems, cartItemToRemove) => {
 
 // 定义 context 的容器
 const CartProvider = ({ children }) => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [cartItemsCount, setCartItemsCount] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+  // const [isCartOpen, setIsCartOpen] = useState(false);
+  // const [cartItems, setCartItems] = useState([]);
+  // const [cartItemsCount, setCartItemsCount] = useState(0);
+  // const [totalPrice, setTotalPrice] = useState(0);
+
+  const [{ cartItems, isCartOpen, cartItemsCount, totalPrice }, dispatch] = useReducer(cartReducer, INITIAL_STATE);
 
   // 计算购物车内的物品总数量，以及购物车内物品的总价格
-  useEffect(() => {
-    const newCartItemsCount = () => cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    setCartItemsCount(newCartItemsCount);
-    const newTotalPrice = () => cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    setTotalPrice(newTotalPrice);
-  }, [cartItems]);
+  // useEffect(() => {
+  //   setCartItemsCount(newCartItemsCount);
+  //   const newTotalPrice = () => cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  //   setTotalPrice(newTotalPrice);
+  // }, [cartItems]);
+
+  const updateCartItemsReducer = (newCartItems) => {
+    // 计算出 newCartItemsCount
+    const newCartItemsCount = newCartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+    // 计算出 newTotalPrice
+    const newTotalPrice = newCartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    // 手动触发 dispatch
+    dispatch(
+      createAction(CART_ACTION_TYPES.SET_CART_ITEMS, {
+        cartItems: newCartItems,
+        totalPrice: newTotalPrice,
+        cartItemsCount: newCartItemsCount,
+      })
+    );
+    /**
+     * 生成 newCartTotal
+     *
+     * 生成 newCartCount
+     *
+     * dispatch new action with payload = {
+     * newCartItems,
+     * newCartTotal,
+     * newCartCount}
+     */
+  };
 
   // 点击事件触发逻辑：传过来的参数是用户要添加的商品
   const addItemToCart = (product) => {
-    setCartItems(addCartItems(cartItems, product));
+    const newCartItems = addCartItems(cartItems, product);
+    updateCartItemsReducer(newCartItems);
   };
 
   const removeItemFromCart = (cartItemToRemove) => {
-    setCartItems(removeCartItem(cartItems, cartItemToRemove));
+    const newCartItems = removeCartItem(cartItems, cartItemToRemove);
+    updateCartItemsReducer(newCartItems);
   };
 
   const clearItemFromCart = (cartItemToRemove) => {
-    setCartItems(clearCartItem(cartItems, cartItemToRemove));
+    const newCartItems = clearCartItem(cartItems, cartItemToRemove);
+    updateCartItemsReducer(newCartItems);
+  };
+
+  // 由于其他地方需要调用 setIsCartOpen 函数来打开或者关闭右上角购物车，
+  // 所以需要定义这个函数。我们使用reducer模式，所以这里直接触发一个dispatch
+  const setIsCartOpen = (bool) => {
+    dispatch(createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool));
   };
 
   // 这一步才是把context的内容通过value加入到容器组件CartProvider中
