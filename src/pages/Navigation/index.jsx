@@ -5,13 +5,11 @@ import { useContext } from 'react';
 import { UserContext, CartContext } from '../../contexts';
 import { signOutUser } from '../../utils';
 import { CartIcon, CartDropDown } from '../../components';
+import { selectCurrentUser } from '../../store/user/user.selector';
+import { useSelector } from 'react-redux';
 
 const Navigation = () => {
-  // 利用 react 提供的Context功能，从context中拿到user
-  // useContext同时也是一个hook，所以就具备了钩子的能力。只要这
-  // 里引入的user发生了变化，那么就重新渲染这个组件。
-  const { currentUser } = useContext(UserContext);
-  // console.log('navigation:', currentUser);
+  const currentUser = useSelector(selectCurrentUser);
 
   const { isCartOpen } = useContext(CartContext);
 

@@ -1,6 +1,4 @@
-import { createContext, useEffect, useReducer } from 'react'; // 这里也引入了useReducer钩子函数
-import { onAuthStateChangedListener, createUserDocumentFromAuth } from '../utils/index';
-import { createAction } from '../utils';
+import { createContext, useReducer } from 'react'; // 这里也引入了useReducer钩子函数
 
 // 创建一个UserContext，并初始化了一个包含currentUser和setCurrentUser的对象作为默认值
 const UserContext = createContext({
@@ -39,25 +37,6 @@ const UserProvider = ({ children }) => {
   // 不使用上面的useState()，而是用下面的useReducer来代替
   //
   const [{ currentUser }, dispatch] = useReducer(userReducer, INITIAL_STATE);
-
-  // 定义setCurrentUser函数，用于出发dispatch
-  const setCurrentUser = (user) => {
-    dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
-  };
-
-  // 使用useEffect钩子函数创建了一个副作用，监听身份验证状态的变化
-  // 当身份验证状态发生变化时,调用setCurrentUser函数更新currentUser
-  useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      // console.log('user in onAuthStateChangedListener:', user);
-      setCurrentUser(user);
-    });
-
-    return unsubscribe;
-  }, []);
 
   const value = { currentUser };
 
