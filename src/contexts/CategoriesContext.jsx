@@ -1,6 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
-import SHOP_DATA from '../shop-data';
-import { addCollectionAndDocuments, getCategoriesAndDocuments } from '../utils';
+import { createContext, useState } from 'react';
 
 const CategoriesContext = createContext({
   categoriesMap: {},
@@ -14,16 +12,16 @@ const CategoriesProvider = ({ children }) => {
   //   addCollectionAndDocuments('categories', SHOP_DATA, 'title');
   // }, []);
 
-  useEffect(() => {
-    // useEffect的第一个参数是回调函数，避免把它写成异步函数，因为为了避免竞态，effect的回调必须是同步的才行
-    const getCategoriesMap = async () => {
-      const categoriesMapFetched = await getCategoriesAndDocuments();
-      // console.log('fetched categories:', categoriesMapFetched);
-      setCategoriesMap(categoriesMapFetched);
-    };
+  // useEffect(() => {
+  //   // useEffect的第一个参数是回调函数，避免把它写成异步函数，因为为了避免竞态，effect的回调必须是同步的才行
+  //   const getCategoriesMap = async () => {
+  //     const categoriesMapFetched = await getCategoriesAndDocuments();
+  //     // console.log('fetched categories:', categoriesMapFetched);
+  //     setCategoriesMap(categoriesMapFetched);
+  //   };
 
-    getCategoriesMap();
-  }, []);
+  //   getCategoriesMap();
+  // }, []);
 
   const value = { categoriesMap }; // 注意，这里右侧的 categoriesMap 实际上是 categoriesMap: categoriesMap 的简写
   return <CategoriesContext.Provider value={value}>{children}</CategoriesContext.Provider>;

@@ -7,10 +7,12 @@ import {
   signOutUser,
   onAuthStateChangedListener,
   addCollectionAndDocuments,
-  getCategoriesAndDocuments,
+  getCategoriesArray,
 } from './firebase';
 
 import { createAction } from './reducers';
+
+/**------------------------------ */
 
 export {
   auth,
@@ -21,6 +23,6 @@ export {
   signOutUser,
   onAuthStateChangedListener,
   addCollectionAndDocuments,
-  getCategoriesAndDocuments,
+  getCategoriesArray,
   createAction,
 };

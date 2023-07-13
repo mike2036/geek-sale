@@ -2,13 +2,14 @@ import { Outlet, Link } from 'react-router-dom';
 import logo from '../../assets/pics/geek-sale-logo.png';
 import './index.scss';
 import { useContext } from 'react';
-import { UserContext, CartContext } from '../../contexts';
+import { CartContext } from '../../contexts';
 import { signOutUser } from '../../utils';
 import { CartIcon, CartDropDown } from '../../components';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { useSelector } from 'react-redux';
 
 const Navigation = () => {
+  // 使用useSelector钩子来获取存储在store里的currentUser
   const currentUser = useSelector(selectCurrentUser);
 
   const { isCartOpen } = useContext(CartContext);

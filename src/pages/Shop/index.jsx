@@ -1,8 +1,26 @@
 import { CategoriesPreview, Category } from '../../pages';
 import './index.scss';
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getCategoriesArray } from '../../utils';
+import { setCategories } from '../../store/categories/categories.action';
+import { useDispatch } from 'react-redux';
 
 const Shop = () => {
+  const dispatch = useDispatch();
+
+  // 因为App.js无需用到categoriesMap，而Shop需要用到，所以在这里获取categoriesMap
+  useEffect(() => {
+    // useEffect的第一个参数是回调函数，避免把它写成异步函数，因为为了避免竞态，effect的回调必须是同步的才行
+    const getCategoriesMap = async () => {
+      const categoriesArray = await getCategoriesArray();
+      // console.log('fetched categoriesArray:', categoriesArray);
+      dispatch(setCategories(categoriesArray));
+    };
+
+    getCategoriesMap();
+  }, []);
+
   /**
    * Routes 是 react-router-dom 库提供的顶层路由容器，用于定义路由配置和渲染对应的组件
    * Route 是一个路由规则组件，用于制定特定路径下药渲染的组件

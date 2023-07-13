@@ -1,15 +1,20 @@
 import './index.scss';
 import { useParams } from 'react-router-dom';
-import { useContext, useState, useEffect, Fragment } from 'react';
-import { CategoriesContext } from '../../contexts';
+import { useState, useEffect, Fragment } from 'react';
+// import { CategoriesContext } from '../../contexts';
 import { ProductCard } from '../../components';
+import { useSelector, shallowEqual } from 'react-redux';
+import { selectCategoriesMap } from '../../store/categories/categories.selector';
 
 const Category = () => {
   // 使用 useParams() 钩子来获取当前路径中的
   const { category } = useParams();
   // console.log('category:', category);
 
-  const { categoriesMap } = useContext(CategoriesContext);
+  // const { categoriesMap } = useContext(CategoriesContext);
+  const categoriesMap = useSelector(selectCategoriesMap, shallowEqual);
+  console.log('categoriesMap:', categoriesMap);
+
   const [products, setProducts] = useState(categoriesMap[category]);
 
   useEffect(() => {

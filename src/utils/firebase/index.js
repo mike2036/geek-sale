@@ -68,17 +68,14 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, fie
 请注意，该函数没有返回值，它只是在内部创建了一个包含商品信息的对象 categoryMap。如果希望在函数调用后使用或进一步处理 categoryMap，需要在函数中添加 return 语句将其返回。
 该逻辑模块假设已经在代码中导入了所需的 Firestore 相关模块，并使用了合适的配置和初始化。它适用于从 Firestore 数据库的指定集合中获取商品信息，并将其转换为以分类标题（转换为小写）作为键的对象。
  */
-export const getCategoriesAndDocuments = async () => {
+export const getCategoriesArray = async () => {
+  // 获取Firestore数据库的集合的引用。使用collection函数选定数据库db，选定集合categories
   const collectionRef = collection(db, 'categories');
-
+  // 构建查询并获取查询快照。query函数用来构建一个基本查询，getDocs函数用来执行查询，查询结果保存早querySnapshot
   const q = query(collectionRef);
   const querySnapshot = await getDocs(q);
-  const categoryMap = querySnapshot.docs.reduce((accumulator, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    accumulator[title.toLowerCase()] = items;
-    return accumulator;
-  }, {});
-  return categoryMap;
+  // 返回文档数据数组。querySnapshot是一个文档快照的数组，通过map函数遍历文档快照数组，并返回每个文档快照的数据部分
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
 // 在 firebase 数据库中创建一个document，在这里是创建一个新注册的用户
