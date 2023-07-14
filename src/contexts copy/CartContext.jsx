@@ -64,7 +64,11 @@ const addCartItems = (cartItems, productToAdd) => {
   });
 
   if (existingCartItem) {
-    return cartItems.map((item) => (item.id === productToAdd.id ? { ...item, quantity: item.quantity + 1 } : item));
+    return cartItems.map((item) =>
+      item.id === productToAdd.id
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    );
   }
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
@@ -82,7 +86,11 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
   if (existingCartItem.quantity === 1) {
     return cartItems.filter((item) => item.id !== cartItemToRemove.id);
   } else if (existingCartItem.quantity > 1) {
-    return cartItems.map((item) => (item.id === cartItemToRemove.id ? { ...item, quantity: item.quantity - 1 } : item));
+    return cartItems.map((item) =>
+      item.id === cartItemToRemove.id
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
+    );
   }
 };
 
@@ -99,7 +107,8 @@ const CartProvider = ({ children }) => {
   // const [cartItemsCount, setCartItemsCount] = useState(0);
   // const [totalPrice, setTotalPrice] = useState(0);
 
-  const [{ cartItems, isCartOpen, cartItemsCount, totalPrice }, dispatch] = useReducer(cartReducer, INITIAL_STATE);
+  const [{ cartItems, isCartOpen, cartItemsCount, totalPrice }, dispatch] =
+    useReducer(cartReducer, INITIAL_STATE);
 
   // 计算购物车内的物品总数量，以及购物车内物品的总价格
   // useEffect(() => {
@@ -110,10 +119,16 @@ const CartProvider = ({ children }) => {
 
   const updateCartItemsReducer = (newCartItems) => {
     // 计算出 newCartItemsCount
-    const newCartItemsCount = newCartItems.reduce((sum, item) => sum + item.quantity, 0);
+    const newCartItemsCount = newCartItems.reduce(
+      (sum, item) => sum + item.quantity,
+      0
+    );
 
     // 计算出 newTotalPrice
-    const newTotalPrice = newCartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const newTotalPrice = newCartItems.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
 
     // 手动触发 dispatch
     dispatch(

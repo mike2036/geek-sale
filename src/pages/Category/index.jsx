@@ -13,7 +13,7 @@ const Category = () => {
 
   // const { categoriesMap } = useContext(CategoriesContext);
   const categoriesMap = useSelector(selectCategoriesMap, shallowEqual);
-  console.log('categoriesMap:', categoriesMap);
+  // console.log('categoriesMap:', categoriesMap);
 
   const [products, setProducts] = useState(categoriesMap[category]);
 
@@ -31,7 +31,10 @@ const Category = () => {
       因为 products 是从外部数据源异步获取，但是下面的渲染逻辑是同步逻辑，所以
       需要增加一个安全机制，确保没有数据的时候就不进行渲染
        */}
-        {products && products.map((product) => <ProductCard key={product.id} product={product} />)}
+        {products &&
+          products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
       </div>
     </Fragment>
   );

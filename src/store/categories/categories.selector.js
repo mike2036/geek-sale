@@ -7,14 +7,15 @@ const selectCategoriesSlice = (store) => store.categories;
 // createSelector创建的选择器
 // 通过createSelector创建选择器，她接受两个参数，第一个是一组输入选择器
 // 第二个是结果函数，用于计算
-// createSelector 具有缓存功能。仅当输入选择器的值改变，才重新计算结果
-export const selectCategoriesMap = createSelector([selectCategoriesSlice], (categoriesSlice) =>
+const selectCategoriesMap = createSelector([selectCategoriesSlice], (categoriesSlice) =>
   categoriesSlice.categories.reduce((acc, category) => {
     const { title, items } = category;
     acc[title.toLowerCase()] = items;
     return acc;
   }, {})
 );
+
+export { selectCategoriesMap };
 
 /**
  * 'useSelector'用于在组件中选择 Redux store 中的状态，并在组建重新渲染时自动订阅和更新。它接收一个选
