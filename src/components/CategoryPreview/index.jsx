@@ -1,6 +1,7 @@
 import { ProductCard } from '../../components';
 import './index.scss';
 import { Link } from 'react-router-dom';
+import { Spinner } from '../../components';
 
 const CategoryPreview = ({ title, products }) => {
   return (

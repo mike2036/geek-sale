@@ -9,6 +9,7 @@ import CartDropDown from './CartDropDown';
 import CartItem from './CartItem';
 import CheckoutItem from './CheckoutItem';
 import CategoryPreview from './CategoryPreview';
+import Spinner from './Spinner';
 
 export {
   DirectoryItem,
@@ -22,4 +23,5 @@ export {
   CartItem,
   CheckoutItem,
   CategoryPreview,
+  Spinner,
 };

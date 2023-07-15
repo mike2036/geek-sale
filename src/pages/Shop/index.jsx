@@ -2,8 +2,7 @@ import { CategoriesPreview, Category } from '../../pages';
 import './index.scss';
 import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getCategoriesArray } from '../../utils';
-import { setCategories } from '../../store/categories/categories.action';
+import { fetchCategoriesAsync } from '../../store/categories/categories.action';
 import { useDispatch } from 'react-redux';
 
 const Shop = () => {
@@ -11,14 +10,14 @@ const Shop = () => {
 
   // 因为App.js无需用到categoriesMap，而Shop需要用到，所以在这里获取categoriesMap
   useEffect(() => {
-    // useEffect的第一个参数是回调函数，避免把它写成异步函数，因为为了避免竞态，effect的回调必须是同步的才行
-    const getCategoriesMap = async () => {
-      const categoriesArray = await getCategoriesArray();
-      // console.log('fetched categoriesArray:', categoriesArray);
-      dispatch(setCategories(categoriesArray));
-    };
-
-    getCategoriesMap();
+    // // useEffect的第一个参数是回调函数，避免把它写成异步函数，因为为了避免竞态，effect的回调必须是同步的才行
+    // const getCategoriesMap = async () => {
+    //   const categoriesArray = await getCategoriesArray();
+    //   // console.log('fetched categoriesArray:', categoriesArray);
+    //   dispatch(setCategories(categoriesArray));
+    // };
+    // getCategoriesMap();
+    dispatch(fetchCategoriesAsync(dispatch));
   }, []);
 
   /**

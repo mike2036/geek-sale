@@ -8,6 +8,7 @@ import { rootReducer } from './root-reducer';
 import { persistStore, persistReducer } from 'redux-persist';
 // 使用localStorage进行存储
 import storage from 'redux-persist/lib/storage';
+import thunk from 'redux-thunk';
 
 const persistConfig = {
   key: 'root', //从 root 开始，都要persist
@@ -18,9 +19,10 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // [].filter(Boolean) 过滤掉数组内所有的falsy值，false, null, undefined, 0, NaN, 空字符串
-const middleWares = [process.env.NODE_ENV !== 'production' && logger].filter(
-  Boolean
-);
+const middleWares = [
+  process.env.NODE_ENV !== 'production' && logger,
+  thunk,
+].filter(Boolean);
 
 // 引入 redux dev tools
 // 如果当前环境不是生产环境且存在 Redux DevTools 扩展，则使用 window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 函数作为增强器（compose）

@@ -3,8 +3,6 @@ import { CART_ACTION_TYPE } from '../cart/cart.type';
 const CART_INITIAL_STATE = {
   isCartOpen: false,
   cartItems: [],
-  // cartItemsCount: 0,
-  // totalPrice: 0,
 };
 
 const cartReducer = (state = CART_INITIAL_STATE, action = {}) => {
