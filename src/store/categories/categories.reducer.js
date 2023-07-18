@@ -7,6 +7,7 @@ const CATEGORIES_INITIAL_STATE = {
   error: null,
 };
 
+// reducer 是纯函数，作用是更新 state 的值
 const categoriesReducer = (state = CATEGORIES_INITIAL_STATE, action = {}) => {
   const { type, payload } = action;
   switch (type) {

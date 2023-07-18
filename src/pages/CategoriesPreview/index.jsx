@@ -1,15 +1,13 @@
 import { Fragment } from 'react';
 import { CategoryPreview, Spinner } from '../../components';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   selectCategoriesMap,
   selectCategoriesIsLoading,
 } from '../../store/categories/categories.selector';
 
 const CategoriesPreview = () => {
-  const categoriesMap = useSelector(selectCategoriesMap, shallowEqual);
-  // console.log('categoriesMap:', categoriesMap);
-
+  const categoriesMap = useSelector(selectCategoriesMap);
   const categoriesIsLoading = useSelector(selectCategoriesIsLoading);
 
   return (

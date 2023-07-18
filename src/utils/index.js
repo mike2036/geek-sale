@@ -8,6 +8,7 @@ import {
   onAuthStateChangedListener,
   addCollectionAndDocuments,
   getCategoriesArray,
+  getCurrentUser,
 } from './firebase';
 
 import { createAction } from './reducers';
@@ -25,4 +26,5 @@ export {
   addCollectionAndDocuments,
   getCategoriesArray,
   createAction,
+  getCurrentUser,
 };

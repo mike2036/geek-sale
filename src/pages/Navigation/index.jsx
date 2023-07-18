@@ -1,13 +1,14 @@
 import { Outlet, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import logo from '../../assets/pics/geek-sale-logo.png';
 import './index.scss';
 // import { useContext } from 'react';
 // import { CartContext } from '../../contexts';
-import { signOutUser } from '../../utils';
 import { CartIcon, CartDropDown } from '../../components';
 import { selectCurrentUser } from '../../store/user/user.selector';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
+import { signOutStart } from '../../store/user/user.action';
 
 const Navigation = () => {
   // 使用useSelector钩子来获取存储在store里的currentUser
@@ -15,6 +16,11 @@ const Navigation = () => {
 
   const isCartOpen = useSelector(selectIsCartOpen);
   // const { isCartOpen } = useContext(CartContext);
+
+  const dispatch = useDispatch();
+  const signOut = async () => {
+    dispatch(signOutStart());
+  };
 
   return (
     <>
@@ -31,7 +37,7 @@ const Navigation = () => {
           {currentUser ? (
             <div>
               <span>{currentUser.displayName}</span>
-              <Link className="nav-link" onClick={signOutUser}>
+              <Link className="nav-link" onClick={signOut}>
                 Sign Out
               </Link>
             </div>
