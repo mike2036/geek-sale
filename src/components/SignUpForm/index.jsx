@@ -45,7 +45,7 @@ const SignUpForm = () => {
     }
     // 提交注册请求
     try {
-      dispatch(signUpStart(email, password, displayName));
+      dispatch(signUpStart({ email, password, displayName }));
 
       // 初始化 UI 界面的表单值，避免用户名密码泄露
       setFormFields(defaultFormFields);

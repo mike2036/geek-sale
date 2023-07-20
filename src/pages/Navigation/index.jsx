@@ -1,5 +1,5 @@
 import { Outlet, Link } from 'react-router-dom';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import logo from '../../assets/pics/geek-sale-logo.png';
 import './index.scss';
 // import { useContext } from 'react';

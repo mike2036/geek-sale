@@ -19,6 +19,10 @@ import {
 // 这是一个辅助函数，它的调用时机是当google或者email用户已经完成鉴权，接下来就该此函数出场。它负责去firebase数据库处理该用户的用户数据
 function* getSnapshotFromUserAuth(userAuth, additionalUserInfo) {
   try {
+    // console.log('getSnapshotFromUserAuth');
+    // console.log('userAuth', userAuth);
+    // console.log('additionalUserInfo', additionalUserInfo);
+
     const userSnapshot = yield call(
       createUserDocumentFromAuth,
       userAuth,
@@ -85,7 +89,10 @@ function* signUpWithEmail({ payload: { email, password, displayName } }) {
       email,
       password
     );
-    yield put(signUpSuccess(user, { displayName }));
+    const additionalUserInfo = { displayName };
+    // console.log('user', user);
+    // console.log('additionalUserInfo', additionalUserInfo);
+    yield put(signUpSuccess({ user, additionalUserInfo }));
   } catch (error) {
     yield put(signInFailed(error));
   }

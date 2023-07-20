@@ -51,7 +51,7 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      dispatch(emailSignInStart(email, password));
+      dispatch(emailSignInStart({ email, password }));
       setFormFields(defaultFormFields);
     } catch (error) {
       switch (error.code) {
