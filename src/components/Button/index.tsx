@@ -1,4 +1,9 @@
-import { BaseButton, GoogleButton, InvertedButton } from './index.styles';
+import {
+  BaseButton,
+  GoogleButton,
+  InvertedButton,
+  ButtonSpinner,
+} from './index.styles';
 // ButtonHTMLAttributes代表 HTML按钮元素的属性
 import { FC, ReactNode, ButtonHTMLAttributes } from 'react';
 
@@ -36,7 +41,11 @@ export const Button: FC<ButtonProps> = ({
 }) => {
   // 上面的参数通过解构赋值的方式从 props 中提取了 children 属性
   const CustomButton = getButton(buttonType);
-  return <CustomButton {...otherProps}>{children}</CustomButton>; // children 表示 Button 组件的子元素
+  return (
+    <CustomButton disabled={isLoading} {...otherProps}>
+      {isLoading ? <ButtonSpinner /> : children}
+    </CustomButton>
+  ); // children 表示 Button 组件的子元素
 };
 
 export default Button;
