@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
+// import { AnyAction } from 'redux';
 import {
   signInSuccess,
   signOutSuccess,
@@ -39,12 +40,12 @@ const INITIAL_STATE: UserState = {
 //   }
 // };
 
-const userReducer = createReducer(INITIAL_STATE, (builder) => {
+export const userReducer = createReducer(INITIAL_STATE, (builder) => {
   builder
     .addCase(signInSuccess, (state, action) => {
       state.currentUser = action.payload;
     })
-    .addCase(signOutSuccess, (state, action) => {
+    .addCase(signOutSuccess, (state) => {
       state.currentUser = null;
     })
     .addCase(signInFailed, (state, action) => {
@@ -57,5 +58,3 @@ const userReducer = createReducer(INITIAL_STATE, (builder) => {
       state.error = action.payload;
     });
 });
-
-export { userReducer };

@@ -10,6 +10,7 @@ import CartItem from './CartItem';
 import CheckoutItem from './CheckoutItem';
 import CategoryPreview from './CategoryPreview';
 import Spinner from './Spinner';
+import PaymentForm from './PaymentForm/index.js';
 
 export {
   DirectoryItem,
@@ -24,4 +25,5 @@ export {
   CheckoutItem,
   CategoryPreview,
   Spinner,
+  PaymentForm,
 };
