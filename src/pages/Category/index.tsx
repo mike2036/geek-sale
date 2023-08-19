@@ -30,6 +30,11 @@ const Category = () => {
     setProducts(categoriesMap[category]);
   }, [categoriesMap, category]);
 
+  // 页面返回顶部
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Fragment>
       <CategoryTitle>{category.toUpperCase()}</CategoryTitle>

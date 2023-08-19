@@ -6,6 +6,7 @@ type BGImgProps = {
 
 // 这里在右边的div的右侧写上了泛型参数，然后就能给属性声明类型
 export const BGImg = styled.div<BGImgProps>`
+  // 上面的泛型参数BGImgProps就是为了给下面的参数imageUrl定义类型
   width: 100%;
   height: 100%;
   background-size: cover;

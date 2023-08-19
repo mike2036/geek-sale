@@ -5,6 +5,7 @@ import {
   Total,
 } from './index.styles';
 import { CheckoutItem, PaymentForm } from '../../components';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   selectCartItems,
@@ -16,6 +17,11 @@ const Checkout = () => {
   const cartTotalPrice = useSelector(selectCartTotalPrice);
 
   // const { cartItems, totalPrice } = useContext(CartContext);
+
+  // 页面返回顶部
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <CheckoutContainer>
