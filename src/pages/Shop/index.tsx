@@ -1,9 +1,10 @@
 import { CategoriesPreview, Category } from '..';
 import './index.style';
 import { Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { fetchCategoriesStart } from '../../store/categories/categories.action';
 import { useDispatch } from 'react-redux';
+import { NavbarPlaceHolder } from '../../components/NavbarPlaceHolder';
 
 const Shop = () => {
   const dispatch = useDispatch();
@@ -19,13 +20,16 @@ const Shop = () => {
    * 在这个例子中，通过 index 属性指定根路径 / 下要渲染的组件是 CategoriesPreview
    */
   return (
-    <Routes>
-      <Route index element={<CategoriesPreview />} />
-      {/**下面path右侧的 :category 是一个变量，表示一个动态路径，可以匹配任意路径
+    <Fragment>
+      <NavbarPlaceHolder />
+      <Routes>
+        <Route index element={<CategoriesPreview />} />
+        {/**下面path右侧的 :category 是一个变量，表示一个动态路径，可以匹配任意路径
       例如，如果访问的路径是 /shop/hats，那么 :category 的值就是 hats
       从而匹配到该路由规则 */}
-      <Route path=":category" element={<Category />} />
-    </Routes>
+        <Route path=":category" element={<Category />} />
+      </Routes>
+    </Fragment>
   );
 };
 
