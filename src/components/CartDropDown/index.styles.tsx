@@ -17,8 +17,8 @@ export const CartDropdownContainer = styled.div`
   border-radius: 2%;
   background-color: white;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-  top: 90px;
-  right: 40px;
+  top: 55px;
+  right: 10px;
   z-index: 5;
 
   ${BaseButton},

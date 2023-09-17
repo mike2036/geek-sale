@@ -9,8 +9,10 @@ export const NavigationContainer = styled.div<NavigationContainerProps>`
   position: fixed;
   top: ${({ isnavigationhidden }) => (isnavigationhidden ? '-70px' : '0')};
   height: 70px;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
+  width: ${document.body.clientWidth -
+  80}px; // 这里减去80的原因是，为了让导航栏的宽度与body的宽度一致，而body的左右两侧各有40的padding
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;

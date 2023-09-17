@@ -14,3 +14,5 @@ declare module '*.png' {
   const src: string; // 声明了一个src，其类型为字符串，这个src将包含导入的svg文件的路径
   export default src;
 }
+
+declare module '*.webp';

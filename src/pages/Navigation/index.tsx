@@ -15,6 +15,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { signOutStart } from '../../store/user/user.action';
 
+import { FreeShipAd } from '../../components/FreeShipAd';
+import { NavSearch } from '../../components/NavSearch';
+
 const Navigation = () => {
   // 使用useSelector钩子来获取存储在store里的currentUser
   const currentUser = useSelector(selectCurrentUser);
@@ -57,9 +60,11 @@ const Navigation = () => {
           <StyledLogo src={logo} />
         </LogoContainer>
 
-        <NavLinksContainer>
-          <NavLink to="/shop">SHOP</NavLink>
+        <FreeShipAd />
 
+        <NavLinksContainer>
+          <NavSearch />
+          <NavLink to="/shop">SHOP</NavLink>
           {currentUser ? (
             <Fragment>
               <span>{currentUser.displayName}</span>
@@ -70,7 +75,6 @@ const Navigation = () => {
           ) : (
             <NavLink to="/auth">Sign In</NavLink>
           )}
-
           <CartIcon />
         </NavLinksContainer>
         {isCartOpen && <CartDropDown />}
