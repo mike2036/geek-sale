@@ -48,7 +48,7 @@ function* getSnapshotFromUserAuth(
 }
 
 function* watchCheckUserSession() {
-  yield* takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
+  yield* takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated); // 使用 takeLatest 来创建一个监听器，在匹配到相应的action时执行 isUserAuthenticated 函数
 }
 function* isUserAuthenticated() {
   try {

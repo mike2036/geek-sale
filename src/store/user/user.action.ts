@@ -49,6 +49,7 @@ export const setCurrentUser = createAction<
   UserData,
   USER_ACTION_TYPES.SET_CURRENT_USER
 >(USER_ACTION_TYPES.SET_CURRENT_USER);
+
 export const checkUserSession = createAction(
   USER_ACTION_TYPES.CHECK_USER_SESSION
 );

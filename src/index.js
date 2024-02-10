@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 
 import './index.scss';
 import App from './App';
@@ -12,16 +12,17 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Elements } from '@stripe/react-stripe-js';
 import { stripePromise } from './utils/stripe/stripe.utils';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root')); // 利用ReactDom库的createRoot方法创建了一个root对象实例
 root.render(
+  // 调用root实例的render方法
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
-        <BrowserRouter>
-          <Elements stripe={stripePromise}>
-            <App />
-          </Elements>
-        </BrowserRouter>
+        {/* <BrowserRouter> */}
+        <Elements stripe={stripePromise}>
+          <App />
+        </Elements>
+        {/* </BrowserRouter> */}
       </PersistGate>
     </Provider>
   </React.StrictMode>

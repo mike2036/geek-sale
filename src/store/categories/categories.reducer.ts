@@ -6,6 +6,7 @@ import {
   fetchCategoriesFailed,
 } from './categories.action';
 
+// 定义 CategoriesState的类型
 export type CategoriesState = {
   readonly categories: Category[];
   readonly isLoading: boolean;

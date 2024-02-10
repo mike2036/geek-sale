@@ -56,14 +56,15 @@ export const StyledSearchIcon = styled(SearchIcon)`
 
 export const StyledCard = styled.div`
   position: absolute;
-  top: 52px;
+  top: 42px;
   left: -100px;
 
   width: 500px;
-  height: 300px;
+  /* height: 300px; */
 
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
+  box-shadow: 0 0 1px;
 
   z-index: 101;
 
@@ -96,6 +97,7 @@ export const StyledHistory = styled.div`
 
   div {
     display: flex;
+    flex-wrap: wrap;
 
     span {
       margin: 0 0 10px 10px;
@@ -116,4 +118,23 @@ export const StyledPopular = styled.div`
   margin: 20px;
 
   /* border: 1px dotted; */
+
+  display: flex;
+  flex-direction: column;
+
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    span {
+      margin: 0 0 10px 10px;
+      padding: 8px;
+      background-color: rgb(245, 245, 245);
+      /* border: 1px solid; */
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    span:hover {
+      background-color: rgb(236, 236, 236);
+    }
+  }
 `;

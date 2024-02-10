@@ -24,6 +24,7 @@ const PaymentForm = () => {
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
+  // 当用户点击确认支付后，paymentHandler 开始执行
   const paymentHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -33,6 +34,7 @@ const PaymentForm = () => {
 
     setIsProcessingPayment(true);
 
+    // 客户端调用服务端接口，创建一个支付意图，传过去的参数为支付金额
     const response = await fetch('/.netlify/functions/create-payment-intent', {
       method: 'post',
       headers: {
@@ -41,11 +43,16 @@ const PaymentForm = () => {
       body: JSON.stringify({ amount: amount * 100 }), // stripe的amount的单位是分，所以要乘以100
     }).then((res) => res.json());
 
+    // 有些团队要求，所有赋值都必须解构，这样更清晰
+    // 返回的response里面有paymentIntent，里面有client_secret字段，这就是客户端秘钥。
+    // 这个密钥是一个短期的令牌，用于让前端能够安全地与Stripe服务器交流
     const {
       paymentIntent: { client_secret },
     } = response;
 
+    //
     const cardDetails = elements.getElement(CardElement);
+
     if (!ifValidCardElement(cardDetails)) return;
 
     const paymentResult = await stripe.confirmCardPayment(client_secret, {

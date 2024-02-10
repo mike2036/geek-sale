@@ -6,7 +6,7 @@ import {
 } from './categories.action';
 import { CATEGORIES_ACTION_TYPE } from './categories.type';
 
-// 这是一个 Saga 函数，定义异步io操作
+// 这是一个Saga函数，用来异步获取 Categories 数据
 function* fetchCategoriesAsync() {
   try {
     const categoriesArray = yield* call(getCategoriesArray);

@@ -5,6 +5,9 @@ export enum CATEGORIES_ACTION_TYPE {
   FETCH_CATEGORIES_FAILURE = 'categories/FETCH_CATEGORIES_FAILURE',
 }
 
+// 把类型定义放在 type 文件里
+
+// CategoryItem 是具体的每一个商品，例如 Brown Brim 帽子
 export type CategoryItem = {
   id: number;
   imageUrl: string;
@@ -12,6 +15,7 @@ export type CategoryItem = {
   price: number;
 };
 
+// Category 是每一个商品类别，例如 Hats大类，Jackets大类 等等
 export type Category = {
   title: string;
   imageUrl: string;

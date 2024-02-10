@@ -43,7 +43,9 @@ const INITIAL_STATE: UserState = {
 export const userReducer = createReducer(INITIAL_STATE, (builder) => {
   builder
     .addCase(signInSuccess, (state, action) => {
-      state.currentUser = action.payload;
+      state.currentUser = action.payload; // 这里看起来是对 state.currentUser进行赋值，
+      // 实际上是生成了一个新的对象。Redux ToolKit时刻监控着 state 对象，
+      // 如果 state 发生了变化，那么它不会改变它，而是生成一个新的 state 对象
     })
     .addCase(signOutSuccess, (state) => {
       state.currentUser = null;

@@ -2,7 +2,6 @@ import {
   SearchBar,
   StyledSearchIcon,
   StyledCard,
-  StyledTriangle,
   StyledHistory,
   StyledPopular,
 } from './index.styles';
@@ -75,7 +74,6 @@ export const NavSearch: FC = () => {
   // 处理全局点击事件
   const handleGlobalClick = (event: MouseEvent) => {
     console.log(event.target);
-    console.log(candidateCardRef);
 
     // 检查点击事件是否发生在输入框以及候选词卡片以外的区域
     if (
@@ -134,7 +132,7 @@ export const NavSearch: FC = () => {
   );
 };
 
-// 定义子组件类型
+// 定义子组件属性的类型
 type CardPropType = {
   candidateCardRef: RefObject<HTMLDivElement | null>;
 };
@@ -144,14 +142,21 @@ type CardPropType = {
 const SearchCandidateCard: FC<CardPropType> = forwardRef(
   ({ candidateCardRef }) => {
     const searchHistory = ['floodlight', 'standing desk', 'PS5'];
+    const popularSearch = [
+      'mens joggers',
+      'portable printer',
+      'metal signs',
+      'fidgets  graphic tees',
+      'bracelets',
+      'mini photo printer',
+      'led lights',
+      'fall clothes',
+    ];
 
     return (
       <Fragment>
         {/* 显示半透明背景，传递位置参数 */}
         <TranslucentBackground top="70px" left="-40px" />
-
-        {/*  显示小三角形 */}
-        <StyledTriangle />
 
         {/*  显示候选词卡片，包括搜索历史和热门搜索 */}
         <StyledCard ref={candidateCardRef as React.LegacyRef<HTMLDivElement>}>
@@ -171,6 +176,12 @@ const SearchCandidateCard: FC<CardPropType> = forwardRef(
           {/* 热门搜索 */}
           <StyledPopular>
             <h3>Popular right now</h3>
+            <div>
+              {/* 热门搜索词条 */}
+              {popularSearch.map((item) => (
+                <span>{item}</span>
+              ))}
+            </div>
           </StyledPopular>
         </StyledCard>
       </Fragment>
